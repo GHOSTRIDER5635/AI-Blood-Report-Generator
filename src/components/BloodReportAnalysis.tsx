@@ -122,6 +122,33 @@ const BloodReportAnalysis = ({ data }: BloodReportAnalysisProps) => {
 
   return (
     <div className="space-y-6">
+      {/* Patient Information Card */}
+      <Card className="shadow-card border-0">
+        <CardHeader className="bg-gradient-medical text-white rounded-t-lg">
+          <CardTitle className="text-xl font-semibold">Patient Information</CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <p className="text-sm text-muted-foreground">Patient Name</p>
+              <p className="font-semibold text-lg">{data.name}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Age</p>
+              <p className="font-semibold text-lg">{data.age} years</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Gender</p>
+              <p className="font-semibold text-lg capitalize">{data.gender}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Test Date</p>
+              <p className="font-semibold text-lg">{new Date(data.testDate).toLocaleDateString()}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="shadow-card border-0">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold text-medical-primary">AI Analysis Report</CardTitle>

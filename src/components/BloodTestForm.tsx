@@ -4,8 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export interface BloodTestData {
+  // Patient Information
+  name: string;
+  age: number;
+  gender: 'male' | 'female' | 'other';
+  testDate: string;
+  
+  // Blood Parameters
   hemoglobin: number;
   wbcCount: number;
   rbcCount: number;
@@ -23,6 +31,13 @@ interface BloodTestFormProps {
 
 const BloodTestForm = ({ onSubmit, loading = false }: BloodTestFormProps) => {
   const [formData, setFormData] = useState<BloodTestData>({
+    // Patient Information
+    name: '',
+    age: 0,
+    gender: 'male',
+    testDate: new Date().toISOString().split('T')[0],
+    
+    // Blood Parameters
     hemoglobin: 0,
     wbcCount: 0,
     rbcCount: 0,
@@ -34,8 +49,12 @@ const BloodTestForm = ({ onSubmit, loading = false }: BloodTestFormProps) => {
   });
 
   const handleInputChange = (field: keyof BloodTestData, value: string) => {
-    const numValue = parseFloat(value) || 0;
-    setFormData(prev => ({ ...prev, [field]: numValue }));
+    if (field === 'name' || field === 'gender' || field === 'testDate') {
+      setFormData(prev => ({ ...prev, [field]: value }));
+    } else {
+      const numValue = parseFloat(value) || 0;
+      setFormData(prev => ({ ...prev, [field]: numValue }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -64,7 +83,75 @@ const BloodTestForm = ({ onSubmit, loading = false }: BloodTestFormProps) => {
       </CardHeader>
       <CardContent className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Patient Information Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-foreground border-b pb-2">Patient Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium">
+                  Patient Name
+                </Label>
+                <Input
+                  id="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  placeholder="Enter patient name"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="age" className="text-sm font-medium">
+                  Age
+                </Label>
+                <Input
+                  id="age"
+                  type="number"
+                  value={formData.age || ''}
+                  onChange={(e) => handleInputChange('age', e.target.value)}
+                  placeholder="Enter age"
+                  min="0"
+                  max="120"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="gender" className="text-sm font-medium">
+                  Gender
+                </Label>
+                <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="testDate" className="text-sm font-medium">
+                  Test Date
+                </Label>
+                <Input
+                  id="testDate"
+                  type="date"
+                  value={formData.testDate}
+                  onChange={(e) => handleInputChange('testDate', e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Blood Parameters Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-foreground border-b pb-2">Blood Test Parameters</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {testParameters.map(({ key, label, unit, normalRange }) => (
               <div key={key} className="space-y-2">
                 <Label htmlFor={key} className="text-sm font-medium flex items-center justify-between">
@@ -90,6 +177,7 @@ const BloodTestForm = ({ onSubmit, loading = false }: BloodTestFormProps) => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
           
           <Button 
