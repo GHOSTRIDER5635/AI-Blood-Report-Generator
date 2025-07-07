@@ -23,7 +23,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-red-light">
       {/* Hero Section */}
       <div className="relative h-96 bg-gradient-medical overflow-hidden">
         <div 

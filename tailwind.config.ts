@@ -59,6 +59,11 @@ export default {
 					danger: 'hsl(var(--medical-danger))',
 					info: 'hsl(var(--medical-info))'
 				},
+				red: {
+					light: 'hsl(var(--red-light))',
+					primary: 'hsl(var(--red-primary))',
+					dark: 'hsl(var(--red-dark))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
