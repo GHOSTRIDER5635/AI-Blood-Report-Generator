@@ -37,7 +37,7 @@ All colors MUST be HSL.
     --ring: 210 100% 45%;
 
     /* Medical theme colors */
-    --medical-primary: 210 100% 45%;
+    --medical-primary: 0 84% 60%;
     --medical-success: 142 76% 36%;
     --medical-warning: 38 92% 50%;
     --medical-danger: 0 75% 55%;
@@ -49,11 +49,11 @@ All colors MUST be HSL.
     --red-dark: 0 75% 55%;
     
     /* Gradients */
-    --gradient-medical: linear-gradient(135deg, hsl(210 100% 45%), hsl(217 91% 60%));
+    --gradient-medical: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 75% 55%));
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 30% 98%));
     
     /* Shadows */
-    --shadow-medical: 0 4px 20px -2px hsl(210 100% 45% / 0.1);
+    --shadow-medical: 0 4px 20px -2px hsl(0 84% 60% / 0.1);
     --shadow-card: 0 2px 10px -2px hsl(210 20% 15% / 0.1);
 
     --radius: 0.5rem;
